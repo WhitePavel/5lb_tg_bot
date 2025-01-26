@@ -22,12 +22,12 @@ employ = InlineKeyboardMarkup(inline_keyboard=[
 async def store_today():
     keyboard = InlineKeyboardBuilder()
     for store in req.requests_all_stores():
-        keyboard.button(text=f"t{store}",callback_data=f"t{store.strip()}")
+        keyboard.button(text=store,callback_data=f"t{store.strip()}")
     return keyboard.adjust(2).as_markup()
 async def store_mount():
     keyboard = InlineKeyboardBuilder()
     for store in req.requests_all_stores():
-        keyboard.button(text=f"m{store}",callback_data=f"m{store.strip()}")
+        keyboard.button(text=store,callback_data=f"m{store.strip()}")
     return keyboard.adjust(2).as_markup()
 
 async def employy_today():
@@ -42,3 +42,8 @@ async def employy_mounth():
         keyboard.button(text=emplo,callback_data=f"m{emplo.strip()}")
     return keyboard.adjust(2).as_markup()
 
+async def employy_achent_mounth():
+    keyboard = InlineKeyboardBuilder()
+    for emplo in req.byemployee(HTTP.BYEMPLOE_MOUNTH):
+        keyboard.button(text=emplo,callback_data=f"achent_{emplo.strip()}")
+    return keyboard.adjust(2).as_markup()

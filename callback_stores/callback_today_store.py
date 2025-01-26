@@ -59,7 +59,7 @@ async def catalog(callback:CallbackQuery):
     else:
         await callback.message.answer(text=f"""Беляево: 
 
-{req.shop(HTTP.BELIAEVO_MOUNTH)}""")
+        {req.shop(HTTP.BELIAEVO_MOUNTH)}""")
 
 @router_store_today.callback_query(F.data.in_(req.byemployee_array()))
 async def employ(callback:CallbackQuery):

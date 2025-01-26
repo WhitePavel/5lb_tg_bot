@@ -3,7 +3,6 @@ import datetime
 import requests
 from dotenv import load_dotenv
 import json
-import HTTP_FOR_TODAY_SHOP as HTTP
 
 load_dotenv()
 current_data = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -99,6 +98,7 @@ def byemployee_array():
         emloy_list.append(name_today)
         emloy_list.append(name_mounth)
 
+
     return tuple(emloy_list)
 
 def byemployee_callback_today(callback_name):
@@ -158,3 +158,6 @@ def byemployee_callback_mounth(callback_name):
 Рентабельность товара: {margin_products}%
 
 Рентабельность продаж: {salesMargin}%"""
+
+
+

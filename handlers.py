@@ -2,6 +2,7 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart,Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.keyboard import ReplyKeyboardBuilder,InlineKeyboardBuilder        # для кнопок с запросом
+from aiogram.enums.parse_mode import ParseMode
 
 import request_my_sklad as req
 import HTTP_FOR_TODAY_SHOP as HTTP
@@ -25,6 +26,16 @@ async def how_are_you(message: Message):
 @router.message(F.text == "Сотрудники👥")
 async def period_employ(message: Message):
     await message.answer("Выбери интересующий период",reply_markup=kb.employ)
+
+@router.message(F.text == "Акценты💰")
+async def acchent(message: Message):
+    await message.answer(f"""Действующие акценты:
+<b>Первый живой коллаген (300р)</b>
+<b>Апотека картон (400р)</b>
+<b>Апотека стекло (300р)</b>
+<b>Лабелло (500р)</b>
+<b>Marine Collagen 1+1 (200)</b>
+""",parse_mode="HTML",reply_markup= await kb.employy_achent_mounth())
 
 
 
@@ -51,16 +62,14 @@ async def catalog(callback:CallbackQuery):
     await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
     await callback.message.answer(text="Продавцы:",reply_markup= await kb.employy_today())
     await callback.message.delete()
-    # await callback.message.answer(f"""
-    # {req.requests_all(HTTP.ALL_MOUNTH)}
-    # """)
 
 @router.callback_query(F.data == 'mouth_employ')
 async def catalog(callback:CallbackQuery):
     await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
     await callback.message.answer(text="Продавцы:",reply_markup= await kb.employy_mounth())
     await callback.message.delete()
-    # await callback.message.answer(f"""
-    # {req.requests_all(HTTP.ALL_MOUNTH)}
-    # """)
 
+@router.callback_query(F.data.regexp(r"achent_,*"))
+async def data_in_achent(callback:CallbackQuery):
+    await callback.answer("")
+    await callback.message.answer(f"{callback.data[7:]}")
