@@ -72,4 +72,4 @@ async def catalog(callback:CallbackQuery):
 @router.callback_query(F.data.regexp(r"achent_,*"))
 async def data_in_achent(callback:CallbackQuery):
     await callback.answer("")
-    await callback.message.answer(f"{callback.data[7:]}")
+    await callback.message.answer(f"{req.achent_and_employ_pay(callback.data)}")

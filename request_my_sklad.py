@@ -160,4 +160,11 @@ def byemployee_callback_mounth(callback_name):
 Рентабельность продаж: {salesMargin}%"""
 
 
+def achent_and_employ_pay(callback_name):
+    url = f"https://api.moysklad.ru/api/remap/1.2/report/profit/byemployee?momentFrom={current_data_mounth} 00:00:00"
+    response = requests.request("GET", url, headers=headers).text
+    data_json = json.loads(response)
+    for dict_employ in data_json["rows"]:
+        if dict_employ["employee"]["name"] == callback_name[7:]:
+            return dict_employ["profit"]//1000
 
