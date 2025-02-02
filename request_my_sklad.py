@@ -3,13 +3,11 @@ import datetime
 import requests
 from dotenv import load_dotenv
 import json
+from HTTP_FOR_TODAY_SHOP import current_data,current_data_mounth,dict_url_for_achent,apotheka_glass
 
 load_dotenv()
-current_data = datetime.datetime.now().strftime('%Y-%m-%d')
 headers = {'Authorization': os.getenv("MY_SKLAD_TOKEN")}
-current_data_mounth = datetime.datetime.now().strftime('%Y-%m-01')
-
-def requests_all_stores() -> list:
+def requests_all_stores() -> list:                # запрос на получаение складов
     list_store = []
     url = "https://api.moysklad.ru/api/remap/1.2/entity/store"
 
@@ -92,7 +90,7 @@ def byemployee_array():
     response = requests.request("GET", url, headers=headers).text
     data_json = json.loads(response)
 
-    for name in data_json["rows"]:
+    for name in data_json["rows"]:                            # получаем список сотрудников работавших за месяц
         name_today = "m"+name["employee"]["name"]
         name_mounth = "t"+name["employee"]["name"]
         emloy_list.append(name_today)
@@ -109,7 +107,7 @@ def byemployee_callback_today(callback_name):
         if name["employee"]["name"] == callback_name[1:] and len(data_json["rows"]) != 0:
             # return name["salesCount"]
             salesCount = name["salesCount"]
-            salesAvgCheck = name["salesAvgCheck"] / 100
+            salesAvgCheck = name["salesAvgCheck"] / 100   # считаем выручку сотрудников за день
             sellSum = name["sellSum"] / 100
             sellCostSum = name["sellCostSum"] / 100
             profit = name["profit"] / 100
@@ -140,7 +138,7 @@ def byemployee_callback_mounth(callback_name):
             salesCount = name["salesCount"]
             salesAvgCheck = name["salesAvgCheck"] / 100
             sellSum = name["sellSum"] / 100
-            sellCostSum = name["sellCostSum"] / 100
+            sellCostSum = name["sellCostSum"] / 100              # считаем выручку сотрудников за месяц
             profit = name["profit"] / 100
             margin_products = round(name["margin"] * 100, 1)
             salesMargin = round(name["salesMargin"] * 100, 1)
@@ -165,6 +163,32 @@ def achent_and_employ_pay(callback_name):
     response = requests.request("GET", url, headers=headers).text
     data_json = json.loads(response)
     for dict_employ in data_json["rows"]:
-        if dict_employ["employee"]["name"] == callback_name[7:]:
+        if dict_employ["employee"]["name"] == callback_name[7:]:            # подсчёт по 10% от выручки магазина
             return dict_employ["profit"]//1000
+
+
+def day_cassir_for_retail(url_store):
+    response = requests.request("GET", url_store, headers=headers).text
+    data_json = json.loads(response)
+    for dict_employ in data_json["rows"]:
+       return dict_employ["employee"]["name"]
+
+def achent_podschet_apotheca_glass():
+    for id_glass in apotheka_glass:
+        url = f"https://api.moysklad.ru/api/remap/1.2/report/profit/byproduct?momentFrom={current_data} 00:00:00&filter=product=https://api.moysklad.ru/api/remap/1.2/entity/product/{id_glass}"
+        response = requests.request("GET", url, headers=headers)
+        data_json = json.loads(response.text)
+        if data_json["rows"] == True:
+            print(data_json["rows"])
+        else:
+            print("not_true")
+
+
+
+
+def main():
+    achent_podschet_apotheca_glass()
+
+if __name__ =="__main__":
+    main()
 

@@ -1,9 +1,7 @@
 from aiogram import F, Router
-from aiogram.filters import CommandStart,Command
+from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
-from aiogram.utils.keyboard import ReplyKeyboardBuilder,InlineKeyboardBuilder        # для кнопок с запросом
-from aiogram.enums.parse_mode import ParseMode
-
+from administration_DB import requsets_DB_retail
 import request_my_sklad as req
 import HTTP_FOR_TODAY_SHOP as HTTP
 import keyboard as kb                         # импорт клавиатуры
@@ -39,18 +37,18 @@ async def acchent(message: Message):
 
 
 
-@router.callback_query(F.data == 'today_shop')
+@router.callback_query(F.data == 'today_shop')         # обрабатываем магазины на сегодня
 async def catalog(callback:CallbackQuery):
-    await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
+    await callback.answer('')
     await callback.message.answer(text="Магазины:",reply_markup= await kb.store_today())
     await callback.message.delete()
     await callback.message.answer(f"""
     {req.requests_all(HTTP.ALL_TODAY)}
     """)
 
-@router.callback_query(F.data == 'month_shop')
+@router.callback_query(F.data == 'month_shop')         #
 async def catalog(callback:CallbackQuery):
-    await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
+    await callback.answer('')
     await callback.message.answer(text="Магазины:",reply_markup= await kb.store_mount())
     await callback.message.delete()
     await callback.message.answer(f"""
@@ -59,17 +57,19 @@ async def catalog(callback:CallbackQuery):
 
 @router.callback_query(F.data == 'today_employ')
 async def catalog(callback:CallbackQuery):
-    await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
+    await callback.answer('')
     await callback.message.answer(text="Продавцы:",reply_markup= await kb.employy_today())
     await callback.message.delete()
 
 @router.callback_query(F.data == 'mouth_employ')
 async def catalog(callback:CallbackQuery):
-    await callback.answer('')                        # отправляет какое_либо уведомление,сообщение пересаёт подсвечивать
+    await callback.answer('')
     await callback.message.answer(text="Продавцы:",reply_markup= await kb.employy_mounth())
     await callback.message.delete()
 
 @router.callback_query(F.data.regexp(r"achent_,*"))
 async def data_in_achent(callback:CallbackQuery):
     await callback.answer("")
-    await callback.message.answer(f"{req.achent_and_employ_pay(callback.data)}")
+    await callback.message.answer(f"""10% от выручки{req.achent_and_employ_pay(callback.data)}
+Оклад за смены{requsets_DB_retail(callback.data[7:])} 
+Акцентные позиции""")

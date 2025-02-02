@@ -6,7 +6,7 @@ import request_my_sklad as req
 
 router_store_today = Router()
 
-@router_store_today.callback_query(F.data.in_({'tАшан Рязанка',"mАшан Рязанка"}))
+@router_store_today.callback_query(F.data.in_({'tАшан Рязанка',"mАшан Рязанка"}))     # рязанка
 async def catalog(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(text=f"""Ашан Рязанка: 
@@ -17,7 +17,7 @@ async def catalog(callback:CallbackQuery):
     
 {req.shop(HTTP.ASHAN_RYZANKA_MOUNTH)}""")
 
-@router_store_today.callback_query(F.data.in_({'tТЦ Авеню Юго-Западная',"mТЦ Авеню Юго-Западная"}))
+@router_store_today.callback_query(F.data.in_({'tТЦ Авеню Юго-Западная',"mТЦ Авеню Юго-Западная"})) #авеню
 async def catalog(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(text=f"""Авеню Юго-Западная: 
@@ -28,7 +28,7 @@ async def catalog(callback:CallbackQuery):
 
 {req.shop(HTTP.AVENU_MOUNTH)}""")
 
-@router_store_today.callback_query(F.data.in_({'tМетрополис',"mМетрополис"}))
+@router_store_today.callback_query(F.data.in_({'tМетрополис',"mМетрополис"}))      #метрополис
 async def catalog(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(text=f"""Метрополис:
@@ -39,7 +39,7 @@ async def catalog(callback:CallbackQuery):
 
 {req.shop(HTTP.METROPOLIS_MOUNTH)}""")
 
-@router_store_today.callback_query(F.data.in_({'tГлобус Медведково',"mГлобус Медведково"}))
+@router_store_today.callback_query(F.data.in_({'tГлобус Медведково',"mГлобус Медведково"}))    # медведково
 async def catalog(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(text=f"""Глобус Медведково: 
@@ -50,7 +50,7 @@ async def catalog(callback:CallbackQuery):
 
 {req.shop(HTTP.GBLOBUS_MOUNTH)}""")
 
-@router_store_today.callback_query(F.data.in_({'tБеляево',"mБеляево"}))
+@router_store_today.callback_query(F.data.in_({'tБеляево',"mБеляево"}))        #
 async def catalog(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(text=f"""Беляево: 
@@ -61,7 +61,7 @@ async def catalog(callback:CallbackQuery):
 
         {req.shop(HTTP.BELIAEVO_MOUNTH)}""")
 
-@router_store_today.callback_query(F.data.in_(req.byemployee_array()))
+@router_store_today.callback_query(F.data.in_(req.byemployee_array()))         # каллбак показателей сотрудников
 async def employ(callback:CallbackQuery):
     if callback.data[0] == "t":
         await callback.message.answer(f"""{callback.data[1:]}
