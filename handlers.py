@@ -1,7 +1,6 @@
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
-from administration_DB import requsets_DB_retail
 import request_my_sklad as req
 import HTTP_FOR_TODAY_SHOP as HTTP
 import keyboard as kb                         # импорт клавиатуры
@@ -46,7 +45,7 @@ async def catalog(callback:CallbackQuery):
     {req.requests_all(HTTP.ALL_TODAY)}
     """)
 
-@router.callback_query(F.data == 'month_shop')         #
+@router.callback_query(F.data.in_({'month_shop',"today_shop"}))        #
 async def catalog(callback:CallbackQuery):
     await callback.answer('')
     await callback.message.answer(text="Магазины:",reply_markup= await kb.store_mount())
@@ -54,6 +53,7 @@ async def catalog(callback:CallbackQuery):
     await callback.message.answer(f"""
     {req.requests_all(HTTP.ALL_MOUNTH)}
     """)
+
 
 @router.callback_query(F.data == 'today_employ')
 async def catalog(callback:CallbackQuery):

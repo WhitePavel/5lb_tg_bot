@@ -1,7 +1,7 @@
 import sqlite3 as sq
 import requests
 import json
-from request_my_sklad import headers
+from request_my_sklad import headers,achent_podschet_apotheca
 import re
 from HTTP_FOR_TODAY_SHOP import ALL_TODAY,current_data,current_data_mounth
 
@@ -40,6 +40,16 @@ def requsets_DB_retail(callback):
         cur = con.cursor()
         cur.execute(f"""SELECT count_work_shift_month FROM employ WHERE name LIKE '{callback}' """)
         return cur.fetchall()[0][0] * 2000
+
+
+def achent_position_add():
+    with sq.connect("employ.db") as con:
+        cur = con.cursor()
+        achent_podschet_apotheca()
+
+
+        cur.execute(f"UPDATE employ SET  ")
+
 
 
 
