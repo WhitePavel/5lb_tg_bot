@@ -41,9 +41,7 @@ src = {
     "563d576e-e775-11ee-0a80-144e0005ffe0": "Stress Management 60 таб (Apotheka)",
     "560897a9-e775-11ee-0a80-144e0005ffb4": "VitaMen 60 капс (Apotheka)",
     "56047198-e775-11ee-0a80-144e0005ffb0": "VitaWomen 60 капс (Apotheka)",
-    "56275d6e-e775-11ee-0a80-144e0005ffd0": "With Antibiotic Therapy 20 капс (Apotheka)",
-    "4557a898-3521-11ef-0a80-14270008da26": "test",
-    "4a7ab714-777b-11ef-0a80-091a0000932a": "test2"
+    "56275d6e-e775-11ee-0a80-144e0005ffd0": "With Antibiotic Therapy 20 капс (Apotheka)"
 }
 
 
@@ -91,6 +89,5 @@ carton={
     "563d576e-e775-11ee-0a80-144e0005ffe0": "Stress Management 60 таб (Apotheka)",
     "560897a9-e775-11ee-0a80-144e0005ffb4": "VitaMen 60 капс (Apotheka)",
     "56047198-e775-11ee-0a80-144e0005ffb0": "VitaWomen 60 капс (Apotheka)",
-    "56275d6e-e775-11ee-0a80-144e0005ffd0": "With Antibiotic Therapy 20 капс (Apotheka)",
-    "4557a898-3521-11ef-0a80-14270008da26": "test",
-    "4a7ab714-777b-11ef-0a80-091a0000932a": "test2"}
+    "56275d6e-e775-11ee-0a80-144e0005ffd0": "With Antibiotic Therapy 20 капс (Apotheka)"
+    }

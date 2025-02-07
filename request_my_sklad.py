@@ -4,6 +4,7 @@ import json
 from dotenv import load_dotenv
 import db.dict_achent as dba
 from HTTP_FOR_TODAY_SHOP import current_data,current_data_mounth,id_store
+import re
 
 load_dotenv()
 headers = {'Authorization': os.getenv("MY_SKLAD_TOKEN")}
@@ -90,7 +91,6 @@ def byemployee_array():
            f"?momentFrom={current_data_mounth} 00:00:00")
     response = requests.request("GET", url, headers=headers).text
     data_json = json.loads(response)
-
     for name in data_json["rows"]:                            # получаем наполняем обработчик callback
         name_today = "m"+name["employee"]["name"]
         name_mounth = "t"+name["employee"]["name"]
@@ -151,9 +151,9 @@ def day_cassir_for_retail(url_store):
     response = requests.request("GET", url_store, headers=headers).text  # вывод кассира магазина сегодня
     data_json = json.loads(response)
     for dict_employ in data_json["rows"]:
-       return dict_employ["employee"]["name"]
+       return re.sub(string=dict_employ["employee"]["name"],pattern="[, .]",repl="")
 
-def achent_podschet_apotheca():
+def achent_apotheka_today():
     for store in id_store:
         url = ("https://api.moysklad.ru/api/remap/1.2/report/profit/byproduct" 
                f"?momentFrom={current_data} 00:00:00"
@@ -161,20 +161,20 @@ def achent_podschet_apotheca():
 
         response = requests.request("GET", url, headers=headers).json()
         for i in response["rows"]:
-           if i["assortment"]["meta"]["href"][53:] in dba.glass:
-               id_apotheka_glass = i["assortment"]["meta"]["href"][53:]
-               return print(id_apotheka_glass)
-           elif i["assortment"]["meta"]["href"][53:] in dba.carton:
-               id_apotheka_carton = i["assortment"]["meta"]["href"][53:]
-               return print("картон",id_apotheka_carton)
+           if i["assortment"]["meta"]["href"][53:] in dba.src:
+
+                return i["assortment"]["meta"]["href"][53:],day_cassir_for_retail(f"https://api.moysklad.ru/api/remap/1.2/report/profit/byemployee?momentFrom={current_data} 00:00:00"
+                                                "&filter=store=https://api.moysklad.ru/api/remap/1.2/entity/store/"
+                                                f"{store}"), int(i["sellQuantity"])
+           else:
+               return "Сегодня пусто"
 
 
 
 
 
 def main():
-    achent_podschet_apotheca()
-
+    print(byemployee_array())
 
 if __name__ =="__main__":
     main()

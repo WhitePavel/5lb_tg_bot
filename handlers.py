@@ -2,8 +2,8 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 import request_my_sklad as req
-import HTTP_FOR_TODAY_SHOP as HTTP
 import keyboard as kb                         # импорт клавиатуры
+from db.administration_DB import requsets_DB_retail,request_db_pay_achent
 
 router = Router()
 
@@ -34,27 +34,6 @@ async def acchent(message: Message):
 <b>Marine Collagen 1+1 (200)</b>
 """,parse_mode="HTML",reply_markup= await kb.employy_achent_mounth())
 
-
-
-@router.callback_query(F.data == 'today_shop')         # обрабатываем магазины на сегодня
-async def catalog(callback:CallbackQuery):
-    await callback.answer('')
-    await callback.message.answer(text="Магазины:",reply_markup= await kb.store_today())
-    await callback.message.delete()
-    await callback.message.answer(f"""
-    {req.requests_all(HTTP.ALL_TODAY)}
-    """)
-
-@router.callback_query(F.data.in_({'month_shop',"today_shop"}))        #
-async def catalog(callback:CallbackQuery):
-    await callback.answer('')
-    await callback.message.answer(text="Магазины:",reply_markup= await kb.store_mount())
-    await callback.message.delete()
-    await callback.message.answer(f"""
-    {req.requests_all(HTTP.ALL_MOUNTH)}
-    """)
-
-
 @router.callback_query(F.data == 'today_employ')
 async def catalog(callback:CallbackQuery):
     await callback.answer('')
@@ -71,5 +50,7 @@ async def catalog(callback:CallbackQuery):
 async def data_in_achent(callback:CallbackQuery):
     await callback.answer("")
     await callback.message.answer(f"""10% от выручки{req.achent_and_employ_pay(callback.data)}
-Оклад за смены{requsets_DB_retail(callback.data[7:])} 
-Акцентные позиции""")
+Оклад за смены{requsets_DB_retail(callback.data[7:])}
+ 
+Аоптека картон: {int(request_db_pay_achent(callback.data[7:])[0][0]) * 400}
+Апотека стекло: {int(request_db_pay_achent(callback.data[7:])[0][1]) * 300}""")

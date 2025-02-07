@@ -3,8 +3,28 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery
 import HTTP_FOR_TODAY_SHOP as HTTP
 import request_my_sklad as req
+import keyboard as kb                         # импорт клавиатуры
 
 router_store_today = Router()
+
+@router_store_today.callback_query(F.data == 'today_shop')         # обрабатываем магазины на сегодня
+async def catalog(callback:CallbackQuery):
+    await callback.answer('')
+    await callback.message.answer(text="Магазины:",reply_markup= await kb.store_today())
+    await callback.message.delete()
+    await callback.message.answer(f"""
+    {req.requests_all(HTTP.ALL_TODAY)}
+    """)
+
+@router_store_today.callback_query(F.data =='month_shop')        #
+async def catalog(callback:CallbackQuery):
+    await callback.answer('')
+    await callback.message.answer(text="Магазины:",reply_markup= await kb.store_mount())
+    await callback.message.delete()
+    await callback.message.answer(f"""
+    {req.requests_all(HTTP.ALL_MOUNTH)}
+    """)
+
 
 @router_store_today.callback_query(F.data.in_({'tАшан Рязанка',"mАшан Рязанка"}))     # рязанка
 async def catalog(callback:CallbackQuery):
