@@ -17,6 +17,8 @@ def employ_db(url):
         emloy_list.append(re.sub(string=name["employee"]["name"], pattern="[, .]",repl=""))
 
     return tuple(emloy_list)
+
+
 def filling_DB():
     with sq.connect("/Users/pavelprosvetov/Desktop/Python_work/5lb_aiogram_bot/db/employ.db") as con:  # обновлнение смен за день
         cur = con.cursor()
@@ -64,8 +66,8 @@ def achent_position_add():
             return "Сегодня пусто"
 
 def main():
-    achent_position_add()
-    filling_DB()
+    achent_position_add() # подсчёт за сегодня всех акцентов
+    filling_DB()   # подсчет смен
 
 if __name__ == "__main__":
     main()

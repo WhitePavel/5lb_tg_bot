@@ -49,8 +49,16 @@ async def catalog(callback:CallbackQuery):
 @router.callback_query(F.data.regexp(r"achent_,*"))
 async def data_in_achent(callback:CallbackQuery):
     await callback.answer("")
-    await callback.message.answer(f"""10% от выручки{req.achent_and_employ_pay(callback.data)}
-Оклад за смены{requsets_DB_retail(callback.data[7:])}
+    await callback.message.answer(f"""<b>{callback.data[7:]}</b>
+    
+<b>10% от выручки</b>: {req.achent_and_employ_pay(callback.data)}
+
+<b>Оклад за смены</b>: {requsets_DB_retail(callback.data[7:])}
  
-Аоптека картон: {int(request_db_pay_achent(callback.data[7:])[0][0]) * 400}
-Апотека стекло: {int(request_db_pay_achent(callback.data[7:])[0][1]) * 300}""")
+<b>Апотека картон</b>: {int(request_db_pay_achent(callback.data[7:])[0][0]) * 400}
+
+<b>Апотека стекло</b>: {int(request_db_pay_achent(callback.data[7:])[0][1]) * 300}
+
+<i>Итого</i>: <i>{int(req.achent_and_employ_pay(callback.data)) + int(requsets_DB_retail(callback.data[7:])) +
+               (int(request_db_pay_achent(callback.data[7:])[0][0]) * 400) + (int(request_db_pay_achent(callback.data[7:])[0][1]) * 300)}</i>
+""",parse_mode="HTML")

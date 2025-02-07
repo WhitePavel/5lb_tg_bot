@@ -173,7 +173,7 @@ def achent_apotheka_today():
 
 
 def main():
-    print(byemployee_array())
+    pass
 
 if __name__ =="__main__":
     main()
