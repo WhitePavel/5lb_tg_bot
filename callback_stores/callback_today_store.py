@@ -39,57 +39,6 @@ async def catalog(callback:CallbackQuery):
 {req.shop(callback.data)}""")
 
 
-# @router_store_today.callback_query(F.data.in_({'tТЦ Авеню Юго-Западная',"mТЦ Авеню Юго-Западная"})) #авеню
-# async def catalog(callback:CallbackQuery):
-#     if callback.data[0] == "t":
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Авеню Юго-Западная:
-#
-# {req.shop(HTTP.AVENU)}""")
-#     else:
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Авеню Юго-Западная:
-#
-# {req.shop(HTTP.AVENU_MOUNTH)}""")
-#
-# @router_store_today.callback_query(F.data.in_({'tМетрополис',"mМетрополис"}))      #метрополис
-# async def catalog(callback:CallbackQuery):
-#     if callback.data[0] == "t":
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Метрополис:
-#
-# {req.shop(HTTP.METROPOLIS)}""")
-#     else:
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Метрополис:
-#
-# {req.shop(HTTP.METROPOLIS_MOUNTH)}""")
-#
-# @router_store_today.callback_query(F.data.in_({'tГлобус Медведково',"mГлобус Медведково"}))    # медведково
-# async def catalog(callback:CallbackQuery):
-#     if callback.data[0] == "t":
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Глобус Медведково:
-#
-# {req.shop(HTTP.GBLOBUS)}""")
-#     else:
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Глобус Медведково:
-#
-# {req.shop(HTTP.GBLOBUS_MOUNTH)}""")
-#
-# @router_store_today.callback_query(F.data.in_({'tБеляево',"mБеляево"}))        #
-# async def catalog(callback:CallbackQuery):
-#     if callback.data[0] == "t":
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Беляево:
-#
-# {req.shop(HTTP.BELIAEVO)}""")
-#     else:
-#         await callback.answer("")
-#         await callback.message.answer(text=f"""Беляево:
-#
-#         {req.shop(HTTP.BELIAEVO_MOUNTH)}""")
 
 @router_store_today.callback_query(F.data.in_(req.byemployee_array()))         # каллбак показателей сотрудников
 async def employ(callback:CallbackQuery):

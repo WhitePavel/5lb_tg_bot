@@ -30,6 +30,7 @@ async def store_mount():
         keyboard.button(text=store,callback_data=f"m{store.strip()}")
     return keyboard.adjust(2).as_markup()
 
+
 async def employy_today():
     keyboard = InlineKeyboardBuilder()
     for emplo in req.byemployee(HTTP.BYEMPLOE_TODAY):
@@ -41,6 +42,7 @@ async def employy_mounth():
     for emplo in req.byemployee(HTTP.BYEMPLOE_MOUNTH):
         keyboard.button(text=emplo,callback_data=f"m{emplo.strip()}")
     return keyboard.adjust(2).as_markup()
+
 
 async def employy_achent_mounth():
     keyboard = InlineKeyboardBuilder()
