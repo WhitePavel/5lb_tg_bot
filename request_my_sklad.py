@@ -3,7 +3,7 @@ import requests
 import json
 from dotenv import load_dotenv
 import db.dict_achent as dba
-from HTTP_FOR_TODAY_SHOP import current_data,current_data_mounth,id_store
+from HTTP_FOR_TODAY_SHOP import current_data,current_data_mounth,id_store,callback_meta
 import re
 
 load_dotenv()
@@ -41,10 +41,9 @@ def requests_all(url) -> str:
 Сумма себестоимости: {round(sell_Cost_Sum,1)}р""")
 
 
-def shop(url) -> str:
-    url = url
+def shop(callback) -> str:
 
-    response = requests.request("GET", url, headers=headers).text
+    response = requests.request("GET", callback_meta[callback], headers=headers).text
 
     data_json = json.loads(response)
     if len(data_json["rows"]) != 0:
