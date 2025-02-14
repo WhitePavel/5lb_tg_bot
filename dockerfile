@@ -1,15 +1,12 @@
 FROM python:latest
 
-LABEL PavelProsvetov_from_pet_project
+LABEL create_from="Pavel_Prosvetov"
 
-RUN apt update && apt upgrade
+RUN apt update -y && apt upgrade -y
+WORKDIR /root/5lb_bot
 
 COPY . .
 
+RUN pip install requirements.txt -r
 
-
-
-
-
-
-
+CMD ["python3", "run_bot.py"]
